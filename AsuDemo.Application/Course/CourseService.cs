@@ -25,7 +25,7 @@ namespace AsuDemo.Application.CourseService
                 IsDeleted = false,
                 Id = courseDto.Id,
                 Name = courseDto.Name,
-                DepartmentId = courseDto.DepartmentId,
+                
                 PrerequisiteCourseId = courseDto.PrerequisiteCourseId,
             };
 

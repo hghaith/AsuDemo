@@ -12,6 +12,7 @@ namespace AsuDemo.Domain.Context
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<DepartmentCourse> DepartmentCourses { get; set; }
 
     }
 }

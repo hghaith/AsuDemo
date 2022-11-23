@@ -9,9 +9,7 @@ namespace AsuDemo.Domain.Entities
         [StringLength(100)]
         public string Name { get; set; }
 
-        public int? DepartmentId { get; set; }
-        [ForeignKey("DepartmentId")]
-        public Department Department { get; set; }
+        public List<DepartmentCourse> DepartmentCourses { get; set; }
 
         public int? PrerequisiteCourseId { get; set; }
         [ForeignKey("PrerequisiteCourseId")]

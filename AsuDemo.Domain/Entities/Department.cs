@@ -7,6 +7,6 @@ namespace AsuDemo.Domain.Entities
     {
         [StringLength(100)]
         public string Name { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<DepartmentCourse> DepartmentCourses { get; set; }
     }
 }

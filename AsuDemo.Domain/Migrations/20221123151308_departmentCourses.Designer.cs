@@ -4,6 +4,7 @@ using AsuDemo.Domain.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsuDemo.Domain.Migrations
 {
     [DbContext(typeof(AsuDemoContext))]
-    partial class AsuDemoContextModelSnapshot : ModelSnapshot
+    [Migration("20221123151308_departmentCourses")]
+    partial class departmentCourses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

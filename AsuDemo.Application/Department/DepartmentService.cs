@@ -45,7 +45,7 @@ namespace AsuDemo.Application.DepartmentService
 
         public async Task<AppResponse> Delete(int id)
         {
-            Department department = await _asuDemoContext.Departments.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+            Department? department = await _asuDemoContext.Departments.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
             if (department is null)
             {
@@ -62,7 +62,7 @@ namespace AsuDemo.Application.DepartmentService
 
         public async Task<AppResponse<Department>> GetById(int id)
         {
-            Department department = await _asuDemoContext.Departments.Include(x => x.Courses)
+            Department? department = await _asuDemoContext.Departments.Include(x => x.DepartmentCourses)
                 .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
             return AppResponse<Department>.Success(department);
@@ -70,7 +70,7 @@ namespace AsuDemo.Application.DepartmentService
 
         public async Task<AppResponse<List<Department>>> List()
         {
-            List<Department> departments = await _asuDemoContext.Departments.Where(x => !x.IsDeleted).ToListAsync();
+            List<Department> departments = await _asuDemoContext.Departments.Where(x => !x.IsDeleted).Include(x => x.DepartmentCourses).ToListAsync();
 
             return AppResponse<List<Department>>.Success(departments);
         }

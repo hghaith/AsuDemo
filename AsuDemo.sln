@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsuDemo.Api", "AsuDemo.Api\AsuDemo.Api.csproj", "{B3ED4596-FD36-46FB-A419-DC067C60B53F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsuDemo.Api", "AsuDemo.Api\AsuDemo.Api.csproj", "{B3ED4596-FD36-46FB-A419-DC067C60B53F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsuDemo.Domain", "AsuDemo.Domain\AsuDemo.Domain.csproj", "{A2F5202C-05AD-43DC-8C24-B981FEE1D0B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsuDemo.Domain", "AsuDemo.Domain\AsuDemo.Domain.csproj", "{A2F5202C-05AD-43DC-8C24-B981FEE1D0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsuDemo.Application", "AsuDemo.Application\AsuDemo.Application.csproj", "{3317E985-CF26-49BE-AFFF-8F667EB88D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsuDemo.Application", "AsuDemo.Application\AsuDemo.Application.csproj", "{3317E985-CF26-49BE-AFFF-8F667EB88D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsuDemo.Common", "AsuDemo.Common\AsuDemo.Common.csproj", "{B1996CB6-33C9-40CA-8716-C83357FA0BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsuDemo.Common", "AsuDemo.Common\AsuDemo.Common.csproj", "{B1996CB6-33C9-40CA-8716-C83357FA0BD4}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AsuDemo.UI", "AsuDemo.UI\AsuDemo.UI.esproj", "{E59CEEDE-4ADC-4DAF-829A-93498507692C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{B1996CB6-33C9-40CA-8716-C83357FA0BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1996CB6-33C9-40CA-8716-C83357FA0BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1996CB6-33C9-40CA-8716-C83357FA0BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59CEEDE-4ADC-4DAF-829A-93498507692C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59CEEDE-4ADC-4DAF-829A-93498507692C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59CEEDE-4ADC-4DAF-829A-93498507692C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E59CEEDE-4ADC-4DAF-829A-93498507692C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59CEEDE-4ADC-4DAF-829A-93498507692C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59CEEDE-4ADC-4DAF-829A-93498507692C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

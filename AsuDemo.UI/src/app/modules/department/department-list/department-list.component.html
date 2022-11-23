@@ -1,0 +1,16 @@
+<p>department-list works!</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>#Courses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let department of departments">
+      <td>{{department.name}}</td>
+      <td>{{department.courses?.length}}</td>
+    </tr>
+  </tbody>
+</table>
