@@ -1,15 +1,21 @@
 using AsuDemo.Application.CourseService;
+using AsuDemo.Application.DepartmentCourseService;
 using AsuDemo.Application.DepartmentService;
 using AsuDemo.Domain.Context;
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Register Services Manual Instead Of Dynamically for simplicity :)
 
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IDepartmentService, DepartmentService>();
+builder.Services.AddTransient<IDepartmentCourseService, DepartmentCourseService>();
+builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
+builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 builder.Services.AddDbContext<AsuDemoContext>(options =>
 {

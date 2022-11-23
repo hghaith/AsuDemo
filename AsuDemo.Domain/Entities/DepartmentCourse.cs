@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using AsuDemo.Common.AuditableEntity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AsuDemo.Domain.Entities
 {
-    public class DepartmentCourse
+    public class DepartmentCourse : AuditableEntity
     {
-        public int Id { get; set; }
         public int DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }

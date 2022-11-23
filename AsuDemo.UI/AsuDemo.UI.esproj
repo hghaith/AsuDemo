@@ -12,5 +12,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\app\modules\department\models\" />
+    <Folder Include="src\assets\css\" />
+    <Folder Include="src\assets\js\" />
+    <Folder Include="src\shared\models\" />
   </ItemGroup>
 </Project>

@@ -22,7 +22,6 @@ namespace AsuDemo.Application.CourseService
 
             Course course = new()
             {
-                IsDeleted = false,
                 Id = courseDto.Id,
                 Name = courseDto.Name,
                 
@@ -47,14 +46,13 @@ namespace AsuDemo.Application.CourseService
 
         public async Task<AppResponse> Delete(int id)
         {
-            Course course = await _asuDemoContext.Courses.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+            Course course = await _asuDemoContext.Courses.FirstOrDefaultAsync(x => x.Id == id);
 
             if (course is null)
             {
                 return AppResponse.Error("course doesn't exist");
             }
 
-            course.IsDeleted = true;
             _asuDemoContext.Entry(course).State = EntityState.Modified;
 
             await _asuDemoContext.SaveChangesAsync();
@@ -65,14 +63,14 @@ namespace AsuDemo.Application.CourseService
         public async Task<AppResponse<Course>> GetById(int id)
         {
             Course course = await _asuDemoContext.Courses.Include(x => x.PrerequisiteCourse)
-                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return AppResponse<Course>.Success(course);
         }
 
         public async Task<AppResponse<List<Course>>> List()
         {
-            List<Course> courses = await _asuDemoContext.Courses.Where(x => !x.IsDeleted).ToListAsync();
+            List<Course> courses = await _asuDemoContext.Courses.ToListAsync();
 
             return AppResponse<List<Course>>.Success(courses);
         }
