@@ -2,6 +2,8 @@ using AsuDemo.Application.CourseService;
 using AsuDemo.Application.DepartmentCourseService;
 using AsuDemo.Application.DepartmentService;
 using AsuDemo.Domain.Context;
+using AsuDemo.Domain.Dtos;
+using AsuDemo.Domain.Entities;
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +11,31 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register Services Manual Instead Of Dynamically for simplicity :)
+#region Mapping Register is here because lack of time (they should be in Application)
+var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
 
+
+typeAdapterConfig.NewConfig<Department, DepartmentDto>()
+                .Map(d => d.DepartmentCourses, s => s.DepartmentCourses != null && s.DepartmentCourses.Count != 0 ?
+                s.DepartmentCourses.Select(x => x.CourseId) : null);
+
+typeAdapterConfig.NewConfig<DepartmentDto, Department>()
+    .Map(d => d.DepartmentCourses, s => s.DepartmentCourses != null ? s.DepartmentCourses.Select(courseId => new DepartmentCourse { CourseId = courseId }) : null);
+
+typeAdapterConfig.NewConfig<Course, CourseDto>()
+                .Map(d => d.DepartmentCourses, s => s.DepartmentCourses != null && s.DepartmentCourses.Count != 0 ?
+                s.DepartmentCourses.Select(x => x.DepartmentId) : null);
+
+typeAdapterConfig.NewConfig<CourseDto, Course>()
+    .Map(d => d.DepartmentCourses, s => s.DepartmentCourses != null ? s.DepartmentCourses.Select(departmentId => new DepartmentCourse { DepartmentId = departmentId }) : null);
+
+typeAdapterConfig.Default.IgnoreNullValues(true);
+
+builder.Services.AddSingleton(typeAdapterConfig);
+#endregion
+
+
+// Register Services Manual Instead Of Dynamically for simplicity :)
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IDepartmentService, DepartmentService>();
 builder.Services.AddTransient<IDepartmentCourseService, DepartmentCourseService>();

@@ -1,1 +1,72 @@
-<p>course-add works!</p>
+<h1>Course Add</h1>
+
+
+<div class=" container m-4">
+  <form [formGroup]="form">
+    <div class="row">
+
+
+      <div class="col-md-4">
+        <label class="col-form-label">Name</label>
+        <input [class.error]="(form.controls['name'].hasError('required'))"
+               type="text"
+               formControlName="name"
+               class=" form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+               [placeholder]="'name'" />
+
+        <span *ngIf="(form.controls['name'].hasError('required') ) && ( form.controls['name'].dirty || form.controls['name'].touched) "
+              class="text-danger">
+          {{ 'required'}}
+        </span>
+      </div>
+
+      
+
+      <div class="col-md-4">
+        <label class="col-form-label">Prerequisite Course</label>
+        <p-dropdown class="w-100"
+                    [options]="courses"
+                    [showClear]="true"
+                    formControlName="prerequisiteCourseId"
+                    [optionLabel]="'name'"
+                    [optionValue]="'id'"
+                    [name]="'prerequisiteCourseId'"
+                    [styleClass]="'form-control'"
+                    [placeholder]="'Choose'"
+                    [scrollHeight]="'180'"
+                    [filter]="true"
+                    [filterBy]="'name'"
+                    [filterPlaceholder]="'search'">
+        </p-dropdown>
+
+      </div>
+
+
+      <div class="col-md-4">
+        <label class="col-form-label">Departments</label>
+        <p-multiSelect [styleClass]="'form-control'"
+                       [options]="departments"
+                       formControlName="departmentCourses"
+                       [emptyFilterMessage]="'no data'"
+                       [filter]="true"
+                       [filterBy]="'name'"
+                       [filterPlaceHolder]="'search'"
+                       [selectionLimit]="10"
+                       [name]="'departmentCourses'"
+                       [optionLabel]="'name'"
+                       [optionValue]="'id'"
+                       [placeholder]="'Choose'"
+                       [emptyMessage]="'no data'"
+                       [scrollHeight]="'180'">
+        </p-multiSelect>
+      </div>
+
+      <div class="col-md-12 ">
+        <button class="btn btn-primary m-2" (click)="add()">Save</button>
+        <button class="btn btn-success m-2" [routerLink]="['/course/list']">Back</button>
+
+      </div>
+    </div>
+
+  </form>
+</div>

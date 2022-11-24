@@ -1,1 +1,31 @@
-<p>course-list works!</p>
+<h1>Courses List</h1>
+
+<button [routerLink]="['/course/add']" class="btn btn-primary m-2">Add</button>
+
+<table class="table mt-4 text-center">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Prerequisite Course</th>
+      <th>Departments</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courses">
+      <td>{{course.name}}</td>
+      <td>{{getPrerequisiteCourseNmae(course.prerequisiteCourseId)}}</td>
+      <td>
+        <span *ngFor="let department of course.departmentCourses">
+          {{getDepartmentName(department)}},
+        </span>
+        <span *ngIf="course.departmentCourses == null">No Data</span>
+
+      </td>
+      <td>
+        <button class="btn btn-success m-2" (click)="edit(course.id)">Edit</button>
+        <button class="btn btn-danger m-2" (click)="delete(course.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

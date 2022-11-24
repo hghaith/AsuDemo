@@ -1,2 +1,15 @@
-<!--<h1 class="text-center">Welcome To Angular Workshop</h1>-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="text-center">Welcome To Angular Workshop</h1>
+
+
+    <button style="cursor:pointer;" [routerLink]="['/department/list']" class="btn btn-lg btn-primary m-2">Departments</button>
+    <button style="cursor:pointer;" [routerLink]="['/course/list']" class="btn btn-lg btn-success m-2">Courses</button>
+    <button style="cursor:pointer;" [routerLink]="['/']" class="btn btn-lg btn-info m-2">Home</button>
+  </div>
+</div>
+
+
+
 <router-outlet></router-outlet>
+

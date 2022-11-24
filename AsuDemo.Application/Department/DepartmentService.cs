@@ -58,6 +58,8 @@ namespace AsuDemo.Application.DepartmentService
                 return AppResponse.Error("department doesn't exist");
             }
 
+            await _departmentCourseService.ClearDepartmentCourses(id);
+
             _asuDemoContext.Departments.Remove(department);
 
             await _asuDemoContext.SaveChangesAsync();

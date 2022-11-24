@@ -2,6 +2,12 @@
 {
     public class AppResponse
     {
+
+        public AppResponse()
+        {
+
+        }
+
         public bool IsSuccess => Errors.Count == 0;
         public List<string> Errors { get; set; } = new();
 

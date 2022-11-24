@@ -5,7 +5,8 @@ import { DepartmentListComponent } from './department-list/department-list.compo
 
 const routes: Routes = [
   { path: 'list', component: DepartmentListComponent },
-  { path: 'add', component: DepartmentAddComponent }
+  { path: 'add', component: DepartmentAddComponent },
+  { path: 'add/:id', component: DepartmentAddComponent }
 ];
 
 @NgModule({

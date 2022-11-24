@@ -1,7 +1,9 @@
-﻿using AsuDemo.Common.Response;
+﻿using AsuDemo.Application.DepartmentCourseService;
+using AsuDemo.Common.Response;
 using AsuDemo.Domain.Context;
 using AsuDemo.Domain.Dtos;
 using AsuDemo.Domain.Entities;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AsuDemo.Application.CourseService
@@ -10,33 +12,37 @@ namespace AsuDemo.Application.CourseService
     {
         // I am not using Repository Pattern just for simplicity
         private readonly AsuDemoContext _asuDemoContext;
+        private readonly IMapper _mapper;
+        private readonly IDepartmentCourseService _departmentCourseService;
 
-        public CourseService(AsuDemoContext asuDemoContext)
+        public CourseService(AsuDemoContext asuDemoContext,
+            IMapper mapper,
+            IDepartmentCourseService departmentCourseService)
         {
             _asuDemoContext = asuDemoContext;
+            _mapper = mapper;
+            _departmentCourseService = departmentCourseService;
         }
 
         public async Task<AppResponse> Add(CourseDto courseDto)
         {
-            // I am not use mapping just for simplicity
+            Course course = _mapper.Map<Course>(courseDto);
 
-            Course course = new()
-            {
-                Id = courseDto.Id,
-                Name = courseDto.Name,
-                
-                PrerequisiteCourseId = courseDto.PrerequisiteCourseId,
-            };
-
-            if (courseDto.Id == 0)
+            if (course.Id == 0)
             {
                 await _asuDemoContext.Courses.AddAsync(course);
             }
             else
             {
-                _asuDemoContext.Attach(course);
-                _asuDemoContext.Entry(course).State = EntityState.Modified;
-                _asuDemoContext.Update(course);
+                Course? oldCourse = await _asuDemoContext.Courses.AsNoTracking().Include(x => x.DepartmentCourses).FirstOrDefaultAsync(x => x.Id == course.Id);
+                await _departmentCourseService.UpdateDepartment(course.DepartmentCourses, course.Id);
+
+                oldCourse.Name = course.Name;
+                oldCourse.PrerequisiteCourseId = course.PrerequisiteCourseId;
+
+                _asuDemoContext.Attach(oldCourse);
+                _asuDemoContext.Entry(oldCourse).State = EntityState.Modified;
+                _asuDemoContext.Update(oldCourse);
             }
 
             await _asuDemoContext.SaveChangesAsync();
@@ -50,10 +56,12 @@ namespace AsuDemo.Application.CourseService
 
             if (course is null)
             {
-                return AppResponse.Error("course doesn't exist");
+                return AppResponse.Error("Course doesn't exist");
             }
 
-            _asuDemoContext.Entry(course).State = EntityState.Modified;
+            await _departmentCourseService.ClearCoursesRelatedToDepartment(id);
+
+            _asuDemoContext.Courses.Remove(course);
 
             await _asuDemoContext.SaveChangesAsync();
 
@@ -62,7 +70,7 @@ namespace AsuDemo.Application.CourseService
 
         public async Task<AppResponse<Course>> GetById(int id)
         {
-            Course course = await _asuDemoContext.Courses.Include(x => x.PrerequisiteCourse)
+            Course course = await _asuDemoContext.Courses.Include(x => x.DepartmentCourses)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return AppResponse<Course>.Success(course);
@@ -70,7 +78,7 @@ namespace AsuDemo.Application.CourseService
 
         public async Task<AppResponse<List<Course>>> List()
         {
-            List<Course> courses = await _asuDemoContext.Courses.ToListAsync();
+            List<Course> courses = await _asuDemoContext.Courses.Include(x => x.DepartmentCourses).ToListAsync();
 
             return AppResponse<List<Course>>.Success(courses);
         }

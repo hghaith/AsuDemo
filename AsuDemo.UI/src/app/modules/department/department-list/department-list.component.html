@@ -2,17 +2,28 @@
 
 <button class="btn btn-primary m-2" (click)="add()">Add</button>
 
-<table class="table mt-4">
+<table class="table mt-4 text-center">
   <thead>
     <tr>
       <th>Name</th>
-      <th>#Courses</th>
+      <th>Courses</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let department of departments">
       <td>{{department.name}}</td>
-      <!--<td>{{department.courses?.length}}</td>-->
+      <td>
+        <span *ngFor="let course of department.departmentCourses">
+          {{getCourse(course)}},
+        </span>
+        <span *ngIf="department.departmentCourses == null">No Data</span>
+
+      </td>
+      <td>
+        <button class="btn btn-success m-2" (click)="edit(department.id)">Edit</button>
+        <button class="btn btn-danger m-2" (click)="delete(department.id)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>

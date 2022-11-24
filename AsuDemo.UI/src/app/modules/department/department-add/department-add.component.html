@@ -22,24 +22,21 @@
 
       <div class="col-md-6">
         <label class="col-form-label">Department Courses</label>
-        <p-multiSelect [options]="courses"
-                       formControlName="'test'"
-                       [emptyFilterMessage]="'no data'">
+        <p-multiSelect [styleClass]="'form-control'"
+                       [options]="courses"
+                       formControlName="departmentCourses"
+                       [emptyFilterMessage]="'no data'"
+                       [filter]="true"
+                       [filterBy]="'name'"
+                       [filterPlaceHolder]="'search'"
+                       [selectionLimit]="10"
+                       [name]="'departmentCourses'"
+                       [optionLabel]="'name'"
+                       [optionValue]="'id'"
+                       [placeholder]="'Choose'"
+                       [emptyMessage]="'no data'"
+                       [scrollHeight]="'180'">
         </p-multiSelect>
-        <!--<p-multiSelect [options]="courses"
-                 formControlName="'test'"
-                 [emptyFilterMessage]="'no data'"
-                 [filter]="true"
-                 [filterBy]="'name'"
-                 [filterPlaceHolder]="'search'"
-                 [selectionLimit]="10"
-                 [name]="'departmentCourses'"
-                 [optionLabel]="'name'"
-                 [optionValue]="'id'"
-                 [placeholder]="'search'"
-                 [emptyMessage]="'no data'"
-                 [scrollHeight]="'180'">
-  </p-multiSelect>-->
 
       </div>
 
@@ -49,6 +46,6 @@
 
       </div>
     </div>
-    
+
   </form>
 </div>

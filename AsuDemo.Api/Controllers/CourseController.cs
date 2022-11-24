@@ -2,6 +2,7 @@
 using AsuDemo.Common.Response;
 using AsuDemo.Domain.Dtos;
 using AsuDemo.Domain.Entities;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AsuDemo.Api.Controllers
@@ -11,10 +12,13 @@ namespace AsuDemo.Api.Controllers
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
+        private readonly IMapper _mapper;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(ICourseService courseService,
+            IMapper mapper)
         {
             _courseService = courseService;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -30,7 +34,8 @@ namespace AsuDemo.Api.Controllers
         public async Task<IActionResult> List()
         {
             AppResponse<List<Course>> response = await _courseService.List();
-            return Ok(response);
+            AppResponse<List<CourseDto>> mappedResponse = _mapper.Map<AppResponse<List<CourseDto>>>(response);
+            return Ok(mappedResponse);
         }
 
         [HttpGet]
@@ -38,7 +43,8 @@ namespace AsuDemo.Api.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             AppResponse<Course> response = await _courseService.GetById(id);
-            return Ok(response);
+            AppResponse<CourseDto> mappedResponse = _mapper.Map<AppResponse<CourseDto>>(response);
+            return Ok(mappedResponse);
         }
 
         [HttpGet]

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Result } from '../../../../shared/models/result';
+import { EmptyResult, Result } from '../../../../shared/models/result';
 import { CourseService } from '../../course/course.service';
 import { Course } from '../../course/models/course';
 import { DepartmentService } from '../department.service';
@@ -22,7 +22,7 @@ export class DepartmentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDepartments();
-
+    this.getCourses();
   }
 
   getDepartments = () => {
@@ -41,8 +41,26 @@ export class DepartmentListComponent implements OnInit {
     })
   }
 
+  getCourse = (courseId: number): string => {
+    let course = this.courses.find(x => x.id == courseId) as Course;
+
+    return course.name;
+  }
+
   add = () => {
     this.router.navigate(['/department/add']);
+  }
+
+  delete = (id: number) => {
+    this.departmentService.delete(id).subscribe((result: EmptyResult) => {
+      if (result.isSuccess) {
+        this.getDepartments();
+      }
+    })
+  }
+
+  edit = (id: number) => {
+    this.router.navigate([`/department/add/${id}`]);
   }
 
 }

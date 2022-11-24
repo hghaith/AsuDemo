@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.multiselect-toggle::after {
+  display: none;
+}
+
+.p-multiselect {
+  align-items: center;
+}
+
+.dropdow-toggle::after {
+  display: none;
+}
+
+.p-dropdown {
+  align-items: center;
+}
